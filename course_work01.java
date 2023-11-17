@@ -30,45 +30,45 @@ class Cwork01 {
     }
 
     public static void Requirement(int num){
-
+        Scanner scanner = new Scanner(System.in);
         numRows = student.length;
 
         switch (num) {
-                    case 1:
-                        student = AddNewStudent(student, numRows);
-                        break;
-                    case 2:
-                        student = AddNewStudentWithMarks(student,numRows);
-                        break;
-                    case 3:
-                          student = AddNewMarks(student);
-                        break;
-                    case 4:
-
-                        break;
-                    case 5:
-                            
-                        break;
-                    case 6:
-
-                        break;
-                    case 7:
-                        print2DArray(student);
-                        break;
-                    case 8:
-
-                        break;
-                    case 9:
-                            
-                        break;
-                    case 10:
-
-                        break;
-                    default:
-                        System.out.print("Enter again > ");
-                        break;
-            } 
+            case 1:
+                student = AddNewStudent();
+                break;
+            case 2:
+                student = AddNewStudentWithMarks();
+                break;
+            case 3:
+                  student = AddNewMarks();
+                break;
+            case 4:
+                break;
+            case 5:                 
+                break;
+            case 6:
+                print2DArray(student);
+                break;
+            case 7:
+                printStudentDetails(student);                   
+                break;
+            case 8:
+                break;
+            case 9:       
+                break;
+            case 10:
+                break;
+            default:
+                System.out.print("Enter again > ");
+                break;
+        }
+        System.out.print("Do you want to go manu enter(y) : ");
+        char val = scanner.next().charAt(0);
+        if (val == 'y'){
             header();
+        }
+            
     }
 
     public static void line(){
@@ -93,13 +93,13 @@ class Cwork01 {
         System.out.println();
     }
 
-    public static String[][] AddNewMarks(String[][] student){
+    public static String[][] AddNewMarks(){
 
         Scanner scanner = new Scanner(System.in);
         char val = 'y';
         while(val == 'y') {
 
-            String[] newRow = new String[4];
+            //String[] newRow = new String[4];
             System.out.print("Enter student ID : ");
             String ID = scanner.next();
 
@@ -124,7 +124,7 @@ class Cwork01 {
         return student; 
     }
     
-    public static String[][] AddNewStudentWithMarks(String[][] student, int numRows){
+    public static String[][] AddNewStudentWithMarks(){
 
         Scanner scanner = new Scanner(System.in);
         char val = 'y';
@@ -134,16 +134,16 @@ class Cwork01 {
             
             for (int i=0; i<4; i++){
                 if (i==0){
-                    System.out.print("Enter Student Id : ");
+                    System.out.print("Enter Student Id \t\t\t : ");
                     newRow[i] = scanner.next();
                 } else if(i==1){
-                    System.out.print("Enter Student Name : ");
+                    System.out.print("Enter Student Name \t\t\t : ");
                     newRow[i] = scanner.next();
                 }  else if(i==2){
-                    System.out.print("Enter Programming Fundamentals marks : ");
+                    System.out.print("Enter Programming Fundamentals marks  \t : ");
                     newRow[i] = scanner.next();
                 } else if(i==3){
-                    System.out.print("Enter Database Management System marks : ");
+                    System.out.print("Enter Database Management System marks   : ");
                     newRow[i] = scanner.next();
                 }
             }
@@ -158,7 +158,7 @@ class Cwork01 {
         return student; 
     }
 
-    public static String[][] AddNewStudent(String[][] student, int numRows){
+    public static String[][] AddNewStudent(){
         
         Scanner scanner = new Scanner(System.in);
 
@@ -169,10 +169,10 @@ class Cwork01 {
             
             for (int i=0; i<2; i++){
                 if (i==0){
-                    System.out.print("Enter Student Id : ");
+                    System.out.print("Enter Student Id \t\t : ");
                     newRow[i] = scanner.next();
                 } else {
-                    System.out.print("Enter Student Name : ");
+                    System.out.print("Enter Student Name \t\t : ");
                     newRow[i] = scanner.next();
                 }
             }
@@ -198,19 +198,98 @@ class Cwork01 {
         return newArray;
     }
 
-    
+    static void printStudentDetails(String[][] student) {
+        Scanner input = new Scanner(System.in);
+
+        // Average values of all students
+            double[] average = new double[numRows];
+            for(int i=0; i<student.length; i++){
+                int total1 =0;
+                
+                for(int j=2; j<4; j++){
+                    if(j==2){
+                        total1 += Integer.parseInt(student[i][j]);
+                    } else if (j==3){
+                        total1 += Integer.parseInt(student[i][j]);
+                    }
+                }
+                average[i] = (double)total1/2;
+            }
+            // Set average values in Desending order
+            for (int j = 0; j < average.length; j++) {
+                for (int i = 0;  i < average.length-1; i++) {
+                    if (average[i] < average[i + 1]) {
+                        double t = average[i];
+                        average[i] = average[i + 1];
+                        average[i + 1] = t;
+                    }
+                }
+            }
+
+        char val = 'F';
+        while (val != 'T'){
+            System.out.print("Enter Student ID :");
+            String ID = input.next();
+            System.out.print("Enter Student name :");
+            String name = input.next();
+
+            String ID1;
+            String name1;
+            System.out.println("+-------------------------------+---------------+");
+            for(int i=0; i<student.length; i++){
+                ID1 = student[i][0];
+                name1 = student[i][1];
+
+                if (ID1.equals(ID) && name1.equals(name)){
+                    val = 'T';
+                     if(val == 'T'){
+                        int total =0;
+                        for(int j=2; j<4; j++){
+                            if(j==2){
+                                System.out.println("|Programming Fundermental Marks |\t" + student[i][j]+"\t|");
+                                total += Integer.parseInt(student[i][j]);
+                            } else if (j==3){
+                                System.out.println("|Database Management Marks \t|\t" + student[i][j]+"\t|");
+                                total += Integer.parseInt(student[i][j]);
+                            }
+                        }
+                        System.out.println("|Total Marks \t\t\t|\t" + total+"\t|");
+                        double avg = (double)total/2;
+                        System.out.println("|Avg. Marks \t\t\t|\t" +avg+"\t|");
+
+                        for (int k = 0; k < average.length; k++) {
+                            if (average[k] == avg){
+                                System.out.println("|Rank \t\t\t\t|\t"+ (k+1)+"\t|");
+                            }
+                        }
+                    }
+                    break;
+                } else {
+                    val = 'F';
+                }
+            }
+            System.out.println("+-------------------------------+---------------+"); 
+
+            if (val == 'F'){
+                System.out.println("This student not exist, plese enter correct details");
+            } 
+        }
+    }
+
     static void print2DArray(String[][] array) {
-        System.out.println("ID\tNAME");
+        System.out.println("ID\tNAME\tP.F\tD.M");
         for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < 2; j++) {
+            for (int j = 0; j < 4; j++) {
                 System.out.print(array[i][j] + "\t");
             }
             System.out.println();
         }
     }
 
+
     public static void main(String[] args){
 
-         header();      
+         header(); 
+              
     }
 }
