@@ -113,10 +113,28 @@ class Cwork01 {
                     for (int i=2; i<4; i++){
                         if(i==2){
                             System.out.print("Enter Programming Fundamentals marks : ");
-                            student[j][i] = scanner.next();
+                            String mark1 = scanner.next();
+                            boolean bul = CheckMarks(mark1);
+
+                            if (bul){
+                            student[j][i]  = mark1;
+                            } else {
+                                System.out.println("Invalid marks, please enter correct marks. ");
+                                System.out.print("Enter Programming Fundamentals marks  \t : ");
+                                student[j][i] = scanner.next();
+                            }
                         } else if(i==3){
                             System.out.print("Enter Database Management System marks : ");
-                            student[j][i] = scanner.next();
+                            String mark1 = scanner.next();
+                            boolean bul = CheckMarks(mark1);
+
+                            if (bul){
+                            student[j][i]  = mark1;
+                            } else {
+                                System.out.println("Invalid marks, please enter correct marks. ");
+                                System.out.print("Enter Database Management System marks : ");
+                                student[j][i] = scanner.next();
+                            }
                         }
                     }
                 }
@@ -150,7 +168,7 @@ class Cwork01 {
                     have = CheckId(IDdup);
                     if (have){
                         System.out.println("The Student ID already Exist ");
-                        System.out.print("Enter Student Id \t\t : ");
+                        System.out.print("Enter Student Id \t\t\t : ");
                         newRow[i] = scanner.next();
                     } else {
                         newRow[i] = IDdup;
@@ -160,12 +178,32 @@ class Cwork01 {
                     newRow[i] = scanner.next();
                 }  else if(i==2){
                     System.out.print("Enter Programming Fundamentals marks  \t : ");
-                    newRow[i] = scanner.next();
+                    String mark1 = scanner.next();
+                    boolean bul = CheckMarks(mark1);
+
+                    if (bul){
+                      newRow[i]  = mark1;
+                    } else {
+                        System.out.println("Invalid marks, please enter correct marks. ");
+                        System.out.print("Enter Programming Fundamentals marks  \t : ");
+                        newRow[i] = scanner.next();
+                    }
+                     
                 } else if(i==3){
                     System.out.print("Enter Database Management System marks   : ");
-                    newRow[i] = scanner.next();
+                    String mark1 = scanner.next();
+                    boolean bul = CheckMarks(mark1);
+
+                    if (bul){
+                      newRow[i]  = mark1;
+                    } else {
+                        System.out.println("Invalid marks, please enter correct marks. ");
+                        System.out.print("Enter Database Management System marks   : ");
+                        newRow[i] = scanner.next();
+                    }
                 }
             }
+            
             
             student = increaseArraySize(student);
             student[numRows] = newRow;
@@ -200,7 +238,7 @@ class Cwork01 {
                     have = CheckId(IDdup);
                     if (have){
                         System.out.println("The Student ID already Exist ");
-                        System.out.print("Enter Student Id \t\t : ");
+                        System.out.print("Enter Student Id \t\t\t : ");
                         newRow[i] = scanner.next();
                     } else {
                         newRow[i] = IDdup;
@@ -228,6 +266,15 @@ class Cwork01 {
             } 
         }
         return false;
+    }
+
+    public static boolean CheckMarks(String marks){
+        int x = Integer.parseInt(marks);
+        if (x >= 0 && x <=100){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static String[][] increaseArraySize(String[][] array) {
