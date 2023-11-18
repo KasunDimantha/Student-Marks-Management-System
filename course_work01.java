@@ -95,6 +95,10 @@ class Cwork01 {
 
     public static String[][] AddNewMarks(){
 
+        line();
+        System.out.println("|\t\t\t\t    ADD MARKS    \t\t\t\t |");
+        line();
+
         Scanner scanner = new Scanner(System.in);
         char val = 'y';
         while(val == 'y') {
@@ -126,6 +130,10 @@ class Cwork01 {
     
     public static String[][] AddNewStudentWithMarks(){
 
+        line();
+        System.out.println("|\t\t\t\tADD NEW STUDENT WITH MARKS\t\t\t |");
+        line();
+
         Scanner scanner = new Scanner(System.in);
         char val = 'y';
         while(val == 'y') {
@@ -135,7 +143,18 @@ class Cwork01 {
             for (int i=0; i<4; i++){
                 if (i==0){
                     System.out.print("Enter Student Id \t\t\t : ");
-                    newRow[i] = scanner.next();
+
+                    String IDdup ;
+                    IDdup = scanner.next();
+                    boolean have;
+                    have = CheckId(IDdup);
+                    if (have){
+                        System.out.println("The Student ID already Exist ");
+                        System.out.print("Enter Student Id \t\t : ");
+                        newRow[i] = scanner.next();
+                    } else {
+                        newRow[i] = IDdup;
+                    }
                 } else if(i==1){
                     System.out.print("Enter Student Name \t\t\t : ");
                     newRow[i] = scanner.next();
@@ -159,6 +178,10 @@ class Cwork01 {
     }
 
     public static String[][] AddNewStudent(){
+
+        line();
+        System.out.println("|\t\t\t\t    ADD STUDENT    \t\t\t\t |");
+        line();
         
         Scanner scanner = new Scanner(System.in);
 
@@ -170,7 +193,18 @@ class Cwork01 {
             for (int i=0; i<2; i++){
                 if (i==0){
                     System.out.print("Enter Student Id \t\t : ");
-                    newRow[i] = scanner.next();
+       
+                    String IDdup ;
+                    IDdup = scanner.next();
+                    boolean have;
+                    have = CheckId(IDdup);
+                    if (have){
+                        System.out.println("The Student ID already Exist ");
+                        System.out.print("Enter Student Id \t\t : ");
+                        newRow[i] = scanner.next();
+                    } else {
+                        newRow[i] = IDdup;
+                    }
                 } else {
                     System.out.print("Enter Student Name \t\t : ");
                     newRow[i] = scanner.next();
@@ -187,6 +221,15 @@ class Cwork01 {
         return student; 
     }
 
+    public static boolean CheckId(String ID){
+        for(int i=0; i<student.length; i++){
+            if (ID.equals(student[i][0])){ 
+                return true;
+            } 
+        }
+        return false;
+    }
+
     public static String[][] increaseArraySize(String[][] array) {
         String[][] newArray = new String[array.length + 1][array.length > 0 ? array[0].length : 0];
         if (array.length > 0) {
@@ -199,6 +242,11 @@ class Cwork01 {
     }
 
     static void printStudentDetails(String[][] student) {
+
+        line();
+        System.out.println("|\t\t\t\tPRINT STUDENT DETAILS\t\t\t\t |");
+        line();
+
         Scanner input = new Scanner(System.in);
 
         // Average values of all students
