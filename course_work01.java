@@ -41,9 +41,10 @@ class Cwork01 {
                 student = AddNewStudentWithMarks();
                 break;
             case 3:
-                  student = AddNewMarks();
+                student = AddNewMarks();
                 break;
             case 4:
+                student = UpdateStudentDetails();
                 break;
             case 5:                 
                 break;
@@ -93,6 +94,45 @@ class Cwork01 {
         System.out.println();
     }
 
+    public static String[][] UpdateStudentDetails(){
+        line();
+        System.out.println("|\t\t\t\t UPDATE STUDENT DETAILS \t\t\t |");
+        line();
+
+        Scanner scanner = new Scanner(System.in);
+        char var = 'y';
+        while(var == 'y') {
+            System.out.print("Enter Student ID :");
+            String ID = scanner.next();
+
+            String ID1;;
+            boolean same= true;
+            for (int i=0; i<student.length; i++){
+                ID1 = student[i][0];
+
+                if (ID.equals(ID1)){
+                    System.out.println("Student name \t\t:" + student[i][1]);
+                    System.out.print("Enter the new Student name : ");
+                    student[i][1] = scanner.next();
+                    same = true;
+                    break;
+                }
+                same = false;
+            }
+            if(same){
+                System.out.println("Student has been added successfully. ");
+                System.out.print("Do you want to add a new student (y/n) : ");
+                var = scanner.next().charAt(0);
+            } else {
+                System.out.println("This student is not exist, Enter correct details.");
+                var = 'y';
+            }
+            
+        }
+
+        return student;
+    }
+
     public static String[][] AddNewMarks(){
 
         line();
@@ -105,14 +145,28 @@ class Cwork01 {
 
             //String[] newRow = new String[4];
             System.out.print("Enter student ID : ");
-            String ID = scanner.next();
+
+            String ID;
+            String IDdup;
+            boolean have;
+            IDdup = scanner.next();
+            have = CheckId(IDdup);
+            if (have){
+                ID = IDdup;
+            } else {
+                System.out.println("The Student ID Don't Exist, Student ID Enter again.");
+                System.out.print("Enter Student Id \t\t\t : ");
+                ID = scanner.next();
+            }
 
             for(int j=0; j<student.length; j++){
                 String ID1 = student[j][0];
-                if(ID == ID1){
+
+                if(ID.equals(ID1)){
                     for (int i=2; i<4; i++){
                         if(i==2){
-                            System.out.print("Enter Programming Fundamentals marks : ");
+                            System.out.println("Student name \t\t:" + student[i][1]);
+                            System.out.print("Enter Programming Fundamentals marks \t: ");
                             String mark1 = scanner.next();
                             boolean bul = CheckMarks(mark1);
 
@@ -124,7 +178,7 @@ class Cwork01 {
                                 student[j][i] = scanner.next();
                             }
                         } else if(i==3){
-                            System.out.print("Enter Database Management System marks : ");
+                            System.out.print("Enter Database Management System marks \t: ");
                             String mark1 = scanner.next();
                             boolean bul = CheckMarks(mark1);
 
@@ -296,48 +350,73 @@ class Cwork01 {
 
         Scanner input = new Scanner(System.in);
 
-        // Average values of all students
-            double[] average = new double[numRows];
-            for(int i=0; i<student.length; i++){
-                int total1 =0;
-                
-                for(int j=2; j<4; j++){
-                    if(j==2){
-                        total1 += Integer.parseInt(student[i][j]);
-                    } else if (j==3){
-                        total1 += Integer.parseInt(student[i][j]);
-                    }
-                }
-                average[i] = (double)total1/2;
-            }
-            // Set average values in Desending order
-            for (int j = 0; j < average.length; j++) {
-                for (int i = 0;  i < average.length-1; i++) {
-                    if (average[i] < average[i + 1]) {
-                        double t = average[i];
-                        average[i] = average[i + 1];
-                        average[i + 1] = t;
-                    }
-                }
-            }
+            
 
-        char val = 'F';
-        while (val != 'T'){
+        char val = 'y';
+        while (val == 'y'){
             System.out.print("Enter Student ID :");
-            String ID = input.next();
-            System.out.print("Enter Student name :");
-            String name = input.next();
 
-            String ID1;
-            String name1;
-            System.out.println("+-------------------------------+---------------+");
-            for(int i=0; i<student.length; i++){
-                ID1 = student[i][0];
-                name1 = student[i][1];
+            String IDdup = input.next();
+            boolean have;
+            boolean marknull = false;
+            have = CheckId(IDdup);
+            String ID;
+            if (have){
+                ID = IDdup;
+            } else {
+                System.out.println("The Student ID Don't Exist ");
+                System.out.print("Enter Student Id \t\t\t : ");
+                ID = input.next();
+            }
+            for (int i=0; i<student.length; i++){
+                String ID1 = student[i][0];
+                if (ID1.equals(ID)){
+                    System.out.println("Student name : " + student[i][1]);
+                    String mark1 = student[i][2];
+                    String mark2 = student[i][3];
+                    if ((mark1 == null) || (mark2 == null)){
+                        marknull = true;
+                    } else {
+                        marknull = false;
+                    }
+                    break;
+                }
+            }
+            if (marknull){
+                System.out.println("Marks yet to be added.");
+            } else {
 
-                if (ID1.equals(ID) && name1.equals(name)){
-                    val = 'T';
-                     if(val == 'T'){
+                // Average values of all students
+                double[] average = new double[numRows];
+                for(int i=0; i<student.length; i++){
+                    int total1 =0;
+                    
+                    for(int j=2; j<4; j++){
+                        if(j==2){
+                            total1 += Integer.parseInt(student[i][j]);
+                        } else if (j==3){
+                            total1 += Integer.parseInt(student[i][j]);
+                        }
+                    }
+                    average[i] = (double)total1/2;
+                }
+                // Set average values in Desending order
+                for (int j = 0; j < average.length; j++) {
+                    for (int i = 0;  i < average.length-1; i++) {
+                        if (average[i] < average[i + 1]) {
+                            double t = average[i];
+                            average[i] = average[i + 1];
+                            average[i + 1] = t;
+                        }
+                    }
+                }
+
+                String ID1;
+                System.out.println("+-------------------------------+---------------+");
+                for(int i=0; i<student.length; i++){
+                    ID1 = student[i][0];
+
+                    if (ID1.equals(ID)){
                         int total =0;
                         for(int j=2; j<4; j++){
                             if(j==2){
@@ -351,23 +430,18 @@ class Cwork01 {
                         System.out.println("|Total Marks \t\t\t|\t" + total+"\t|");
                         double avg = (double)total/2;
                         System.out.println("|Avg. Marks \t\t\t|\t" +avg+"\t|");
-
                         for (int k = 0; k < average.length; k++) {
                             if (average[k] == avg){
                                 System.out.println("|Rank \t\t\t\t|\t"+ (k+1)+"\t|");
                             }
-                        }
-                    }
-                    break;
-                } else {
-                    val = 'F';
+                        }              
+                        break;
+                    } 
                 }
+                System.out.println("+-------------------------------+---------------+"); 
             }
-            System.out.println("+-------------------------------+---------------+"); 
-
-            if (val == 'F'){
-                System.out.println("This student not exist, plese enter correct details");
-            } 
+            System.out.print("Student has been added successfully. Do you want to add a new student (y/n) : ");
+            val = input.next().charAt(0);
         }
     }
 
