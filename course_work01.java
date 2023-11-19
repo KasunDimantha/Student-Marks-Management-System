@@ -46,13 +46,14 @@ class Cwork01 {
             case 4:
                 student = UpdateStudentDetails();
                 break;
-            case 5:                 
+            case 5:  
+                student = UpdateMarks();               
                 break;
             case 6:
-                print2DArray(student);
+                print2DArray();
                 break;
             case 7:
-                printStudentDetails(student);                   
+                printStudentDetails();                   
                 break;
             case 8:
                 break;
@@ -92,6 +93,81 @@ class Cwork01 {
         System.out.print("[9] Best in Programming Fundamentals \t");
         System.out.println("[10] Best in Database Management System");
         System.out.println();
+    }
+
+    public static String[][] UpdateMarks(){
+        line();
+        System.out.println("|\t\t\t\tUPDATE MARKS\t\t\t\t\t |");
+        line();
+
+        Scanner input = new Scanner(System.in);
+        char var = 'y';
+        while(var == 'y'){
+            System.out.print("Enter Student ID :");
+
+            String IDdup = input.next();
+            boolean have;
+            boolean marknull = false;
+            have = CheckId(IDdup);
+            String ID;
+            if (have){
+                ID = IDdup;
+            } else {
+                System.out.println("The Student ID Don't Exist ");
+                System.out.print("Enter Student Id \t\t\t : ");
+                ID = input.next();
+            }
+
+            for (int i=0; i<student.length; i++){
+                String ID1 = student[i][0];
+                if (ID1.equals(ID)){
+                    System.out.println("Student name : " + student[i][1]);
+                    System.out.println();
+                    String mark1 = student[i][2];
+                    String mark2 = student[i][3];
+                    if ((mark1 == null) || (mark2 == null)){
+                        marknull = true;
+                    } else {
+                        marknull = false;
+                    }
+                    break;
+                }
+            }
+            boolean same = false;
+            if(marknull){
+                System.out.println("This student marks yet to be added.");
+                same = true;
+            } else {
+                for (int i=0; i<student.length; i++){
+                    String ID1 = student[i][0];
+                    if (ID1.equals(ID)){
+                        System.out.println("Programming Fundermental Marks: " + student[i][2]);
+                        System.out.println("Database Management Marks: " + student[i][3]);
+                        break;
+                    }
+
+                    
+                }
+                System.out.println();
+                for (int i=0; i<student.length; i++){
+                    String ID1 = student[i][0];
+                    if (ID1.equals(ID)){
+                        System.out.print("Enter new Programming Fundermental Marks: ");
+                        student[i][2] = input.next();
+                        System.out.print("Enter new Database Management Marks: ");
+                        student[i][3] = input.next();
+                        System.out.println("Student has been added successfully. ");
+                        break;
+                    }  
+                }
+                same = true;
+            }
+            if(same){
+                System.out.print("Do you want to add a new student (y/n) : ");
+                var = input.next().charAt(0);
+            }
+        }
+        return student;
     }
 
     public static String[][] UpdateStudentDetails(){
@@ -342,7 +418,7 @@ class Cwork01 {
         return newArray;
     }
 
-    static void printStudentDetails(String[][] student) {
+    static void printStudentDetails() {
 
         line();
         System.out.println("|\t\t\t\tPRINT STUDENT DETAILS\t\t\t\t |");
@@ -392,10 +468,12 @@ class Cwork01 {
                     int total1 =0;
                     
                     for(int j=2; j<4; j++){
-                        if(j==2){
+                        if((j==2) && (student[i][j] != null)){
                             total1 += Integer.parseInt(student[i][j]);
-                        } else if (j==3){
+                        } else if (j==3 && (student[i][j] != null)){
                             total1 += Integer.parseInt(student[i][j]);
+                        } else {
+                            total1 =+ 0;
                         }
                     }
                     average[i] = (double)total1/2;
@@ -440,16 +518,16 @@ class Cwork01 {
                 }
                 System.out.println("+-------------------------------+---------------+"); 
             }
-            System.out.print("Student has been added successfully. Do you want to add a new student (y/n) : ");
+            System.out.print(" Do you want to search another student details.(y/n) : ");
             val = input.next().charAt(0);
         }
     }
 
-    static void print2DArray(String[][] array) {
+    static void print2DArray() {
         System.out.println("ID\tNAME\tP.F\tD.M");
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i < student.length; i++) {
             for (int j = 0; j < 4; j++) {
-                System.out.print(array[i][j] + "\t");
+                System.out.print(student[i][j] + "\t");
             }
             System.out.println();
         }
