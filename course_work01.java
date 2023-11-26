@@ -58,10 +58,11 @@ class Cwork01 {
             case 8:
                 printStudentRank();
                 break;
-            case 9:       
+            case 9: 
+                bestPFmarks();     
                 break;
             case 10:
-                print2DArray();
+                bestDBMSmaekd(); 
                 break;
             default:
                 System.out.print("Enter again > ");
@@ -86,6 +87,10 @@ class Cwork01 {
         System.out.println("+-----+-----+--------------------+-----------+----------+");
     }
 
+    public static void line3(){
+        System.out.println("+-----+--------------------+----------+---------+");
+    }
+
     public static void option(){
         System.out.println();
         System.out.print("[1] Add New Student \t\t\t");
@@ -101,66 +106,223 @@ class Cwork01 {
         System.out.println();
     }
 
+    public static void bestDBMSmaekd(){
+
+        boolean marknull = false;
+        for (int i=0; i<student.length; i++){
+            if ((student[i][2] == null) || (student[i][3] == null)){
+                marknull = true;
+                break;
+            } else {
+                marknull = false;
+            }
+        }
+        if (marknull){
+            System.out.println("some students marks need to be added.. ");
+        } else {
+            line();
+            System.out.println("|\t\t\tBEST IN DATABASE MANAGEMENT SYSTEM\t\t\t |");
+            line();
+
+            String[][] student1 = new String[numRows][4];
+            
+            for(int i=0; i< student.length; i++){
+                for(int j=0; j<4; j++){
+                    student1[i][j] = student[i][j];
+                }
+            }
+            for(int i=0; i< student.length; i++){
+                String EX = student1[i][2];
+                student1[i][2] = student1[i][3];
+                student1[i][3] = EX;
+            }
+
+            for (int i = 0; i < student1.length; i++) {
+                for (int j = 0;  j < student1.length-1 ; j++){
+                    if(Integer.parseInt(student1[j][2]) < Integer.parseInt(student1[j+1][2])){
+                        String DB = student1[j][3];
+                        student1[j][3] = student1[j+1][3];
+                        student1[j+1][3] = DB;
+
+                        String ID = student1[j][0];
+                        student1[j][0] = student1[j+1][0];
+                        student1[j+1][0] = ID; 
+
+                        String NM = student1[j][1];
+                        student1[j][1] = student1[j+1][1];
+                        student1[j+1][1] = NM;
+
+                        String PF = student1[j][2];
+                        student1[j][2] = student1[j+1][2];
+                        student1[j+1][2] = PF;
+                    }
+                }
+            }
+
+            line3();
+            System.out.println("|ID   |Name \t\t   |DBMS Marks|PF Marks |");
+            line3();
+
+            for(int i=0; i< student1.length; i++){
+                for(int j=0; j<4; j++){
+                    if(j==0){
+                        System.out.print("|" + student1[i][0] +" ");
+                    } else if (j==1){
+                        System.out.print("|" + student1[i][1] + "\t\t   ");
+                    } else if (j==2){
+                        System.out.print("|" + student1[i][2] +"\t      ");
+                    } else if (j==3){
+                        System.out.print("|" + student1[i][3] +"\t|");
+                    }
+                }
+                System.out.println();
+            }
+            line3();
+        }
+    }
+
+    public static void bestPFmarks(){
+
+        boolean marknull = false;
+        for (int i=0; i<student.length; i++){
+            if ((student[i][2] == null) || (student[i][3] == null)){
+                marknull = true;
+                break;
+            } else {
+                marknull = false;
+            }
+        }
+        if (marknull){
+            System.out.println("some students marks need to be added.. ");
+        } else {
+            line();
+            System.out.println("|\t\t\tBEST IN PROGRAMMING FUNDERMENTAL\t\t\t |");
+            line();
+
+            String[][] student1 = new String[numRows][4];
+
+            for(int i=0; i< student.length; i++){
+                for(int j=0; j<4; j++){
+                    student1[i][j] = student[i][j];
+                }
+            }
+
+            for (int i = 0; i < student1.length; i++) {
+                for (int j = 0;  j < student1.length-1 ; j++){
+                    if(Integer.parseInt(student1[j][2]) < Integer.parseInt(student1[j+1][2])){
+                        String DB = student1[j][3];
+                        student1[j][3] = student1[j+1][3];
+                        student1[j+1][3] = DB;
+
+                        String ID = student1[j][0];
+                        student1[j][0] = student1[j+1][0];
+                        student1[j+1][0] = ID; 
+
+                        String NM = student1[j][1];
+                        student1[j][1] = student1[j+1][1];
+                        student1[j+1][1] = NM;
+
+                        String PF = student1[j][2];
+                        student1[j][2] = student1[j+1][2];
+                        student1[j+1][2] = PF;
+                    }
+                }
+            }
+
+            line3();
+            System.out.println("|ID   |Name \t\t   |PF Marks |DBMS Marks|");
+            line3();
+
+            for(int i=0; i< student1.length; i++){
+                for(int j=0; j<4; j++){
+                    if(j==0){
+                        System.out.print("|" + student1[i][0] +" ");
+                    } else if (j==1){
+                        System.out.print("|" + student1[i][1] + "\t\t   ");
+                    } else if (j==2){
+                        System.out.print("|" + student1[i][2] +"\t      ");
+                    } else if (j==3){
+                        System.out.print("|" + student1[i][3] +"\t|");
+                    }
+                }
+                System.out.println();
+            }
+            line3();
+        }
+    }    
+
     public static void printStudentRank(){
 
-        line();
-        System.out.println("|\t\t\t\tPRINT STUDENT'S RANK\t\t\t\t |");
-        line();
-
-        String[][] total = new String[student.length][3];
-
-        for (int i=0; i<student.length; i++){
-            for (int j=0; j<2; j++){
-                if (j==0){
-                    total[i][j] = student[i][j];
-                } else if (j==1){
-                    total[i][j] = student[i][j];
-                }
-            }
-            int tot = 0;
-            for (int j=2; j<4; j++){
-                tot += Integer.parseInt(student[i][j]);
-            }
-            total[i][2] = String.valueOf(tot);
-        }
-
-         for (int i = 0; i < total.length; i++) {
-            for (int j = 0;  j < total.length-1 ; j++) {
-                if (Integer.parseInt(total[j][2]) < Integer.parseInt(total[j+1][2])) {
-                    int t = Integer.parseInt(total[j][2]);
-                    total[j][2] = total[j + 1][2];
-                    total[j + 1][2] = String.valueOf(t);
-
-                    String I = total[j][0];
-                    total[j][0] = total[j+1][0];
-                    total[j+1][0] = I;
-
-                    String N = total[j][1];
-                    total[j][1] = total[j+1][1];
-                    total[j+1][1] = N;
-                }
-            }  
-        }
-
-        line2();
-        System.out.println("|Rank |ID   |Name\t\t |Total Marks|Avg. Marks|");
-        line2();
-
-        for (int i=0; i<total.length; i++){
-            System.out.print("|" + (i+1) + "    ");
-            for (int j=0; j< 3; j++){
-                if(j==0){
-                    System.out.print("|" + total[i][j] + " ");
-                } else if (j==1){
-                    System.out.print("|" + total[i][j] + "\t\t ");
-                } else if  (j==2){
-                    System.out.print("|" + total[i][j] + "\t     |" + Double.parseDouble(total[i][j])/2 + "\t|");
-                }   
-            }
-            System.out.println();
-        }
-        line2();
         
+        boolean marknull = false;
+        for (int i=0; i<student.length; i++){
+            if ((student[i][2] == null) || (student[i][3] == null)){
+                marknull = true;
+                break;
+            } else {
+                marknull = false;
+            }
+        }
+        if (marknull){
+            System.out.println("some students marks need to be added.. ");
+        } else {
+            line();
+            System.out.println("|\t\t\t\tPRINT STUDENT'S RANK\t\t\t\t |");
+            line();
+            String[][] total = new String[student.length][3];
+
+            for (int i=0; i<student.length; i++){
+                for (int j=0; j<2; j++){
+                    if (j==0){
+                        total[i][j] = student[i][j];
+                    } else if (j==1){
+                        total[i][j] = student[i][j];
+                    }
+                }
+                int tot = 0;
+                for (int j=2; j<4; j++){
+                    tot += Integer.parseInt(student[i][j]);
+                }
+                total[i][2] = String.valueOf(tot);
+            }
+
+            for (int i = 0; i < total.length; i++) {
+                for (int j = 0;  j < total.length-1 ; j++) {
+                    if (Integer.parseInt(total[j][2]) < Integer.parseInt(total[j+1][2])) {
+                        int t = Integer.parseInt(total[j][2]);
+                        total[j][2] = total[j + 1][2];
+                        total[j + 1][2] = String.valueOf(t);
+
+                        String I = total[j][0];
+                        total[j][0] = total[j+1][0];
+                        total[j+1][0] = I;
+
+                        String N = total[j][1];
+                        total[j][1] = total[j+1][1];
+                        total[j+1][1] = N;
+                    }
+                }  
+            }
+
+            line2();
+            System.out.println("|Rank |ID   |Name\t\t |Total Marks|Avg. Marks|");
+            line2();
+
+            for (int i=0; i<total.length; i++){
+                System.out.print("|" + (i+1) + "    ");
+                for (int j=0; j< 3; j++){
+                    if(j==0){
+                        System.out.print("|" + total[i][j] + " ");
+                    } else if (j==1){
+                        System.out.print("|" + total[i][j] + "\t\t ");
+                    } else if  (j==2){
+                        System.out.print("|" + total[i][j] + "\t     |" + Double.parseDouble(total[i][j])/2 + "\t|");
+                    }   
+                }
+                System.out.println();
+            }
+            line2();
+        }  
     }
 
     public static String[][] deleteStudent(){
