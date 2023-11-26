@@ -50,16 +50,18 @@ class Cwork01 {
                 student = UpdateMarks();               
                 break;
             case 6:
-                print2DArray();
+                student = deleteStudent();
                 break;
             case 7:
                 printStudentDetails();                   
                 break;
             case 8:
+                printStudentRank();
                 break;
             case 9:       
                 break;
             case 10:
+                print2DArray();
                 break;
             default:
                 System.out.print("Enter again > ");
@@ -80,6 +82,10 @@ class Cwork01 {
         System.out.println();
     }
 
+    public static void line2(){
+        System.out.println("+-----+-----+--------------------+-----------+----------+");
+    }
+
     public static void option(){
         System.out.println();
         System.out.print("[1] Add New Student \t\t\t");
@@ -93,6 +99,105 @@ class Cwork01 {
         System.out.print("[9] Best in Programming Fundamentals \t");
         System.out.println("[10] Best in Database Management System");
         System.out.println();
+    }
+
+    public static void printStudentRank(){
+
+        line();
+        System.out.println("|\t\t\t\tPRINT STUDENT'S RANK\t\t\t\t |");
+        line();
+
+        String[][] total = new String[student.length][3];
+
+        for (int i=0; i<student.length; i++){
+            for (int j=0; j<2; j++){
+                if (j==0){
+                    total[i][j] = student[i][j];
+                } else if (j==1){
+                    total[i][j] = student[i][j];
+                }
+            }
+            int tot = 0;
+            for (int j=2; j<4; j++){
+                tot += Integer.parseInt(student[i][j]);
+            }
+            total[i][2] = String.valueOf(tot);
+        }
+
+         for (int i = 0; i < total.length; i++) {
+            for (int j = 0;  j < total.length-1 ; j++) {
+                if (Integer.parseInt(total[j][2]) < Integer.parseInt(total[j+1][2])) {
+                    int t = Integer.parseInt(total[j][2]);
+                    total[j][2] = total[j + 1][2];
+                    total[j + 1][2] = String.valueOf(t);
+
+                    String I = total[j][0];
+                    total[j][0] = total[j+1][0];
+                    total[j+1][0] = I;
+
+                    String N = total[j][1];
+                    total[j][1] = total[j+1][1];
+                    total[j+1][1] = N;
+                }
+            }  
+        }
+
+        line2();
+        System.out.println("|Rank |ID   |Name\t\t |Total Marks|Avg. Marks|");
+        line2();
+
+        for (int i=0; i<total.length; i++){
+            System.out.print("|" + (i+1) + "    ");
+            for (int j=0; j< 3; j++){
+                if(j==0){
+                    System.out.print("|" + total[i][j] + " ");
+                } else if (j==1){
+                    System.out.print("|" + total[i][j] + "\t\t ");
+                } else if  (j==2){
+                    System.out.print("|" + total[i][j] + "\t     |" + Double.parseDouble(total[i][j])/2 + "\t|");
+                }   
+            }
+            System.out.println();
+        }
+        line2();
+        
+    }
+
+    public static String[][] deleteStudent(){
+        line();
+        System.out.println("|\t\t\t\tDELETE STUDENT\t\t\t\t\t |");
+        line();
+
+        Scanner input = new Scanner(System.in);
+        char val = 'y';
+        while (val == 'y'){
+
+            System.out.print("Enter Student ID :");
+
+            String IDdup = input.next();
+            boolean have = CheckId(IDdup);
+            String ID;
+            if (have){
+                ID = IDdup;
+            } else {
+                System.out.println("The Student ID Don't Exist ");
+                System.out.print("Enter Student Id \t\t\t : ");
+                ID = input.next();
+            }
+
+            for (int i=0; i<student.length; i++){
+                if (ID.equals(student[i][0])){
+                    for (int j=0; j < student[i].length; j++){
+                        student[i][j] = " ";
+                    }
+                    break;
+                }
+            }
+            System.out.println("Student has been deleted successfully.");
+            System.out.print("Do you wont to delete another student? (y/n) : ");
+            val = input.next().charAt(0);
+        }
+        return student;
     }
 
     public static String[][] UpdateMarks(){
