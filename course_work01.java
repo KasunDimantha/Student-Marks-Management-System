@@ -349,8 +349,10 @@ class Cwork01 {
 
             for (int i=0; i<student.length; i++){
                 if (ID.equals(student[i][0])){
-                    for (int j=0; j < student[i].length; j++){
-                        student[i][j] = " ";
+                    for (int k=i; k<student.length-1; k++){
+                        for (int j=0; j < student[i].length; j++){
+                            student[k][j] = student[k+1][j];
+                            student[student.length-1][j] = "0";                        }
                     }
                     break;
                 }
